@@ -1,0 +1,107 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  basicTimeStep 5
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation 0.8484733175982395 0.5270772099477715 0.04777702457781775 6.070326055972765
+  position -0.26413567314270237 1.1954667610722607 5.103754643518901
+}
+Floor {
+}
+TexturedBackgroundLight {
+}
+Robot {
+  translation 0 0.025 0
+  children [
+    SliderJoint {
+      jointParameters JointParameters {
+        axis 1 0 0
+      }
+      device [
+        LinearMotor {
+          name "BasePosMotor"
+        }
+        PositionSensor {
+          name "BasePosSensor"
+        }
+      ]
+      endPoint Solid {
+        children [
+          DEF BASE_TO_ROB1 HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 -1
+            }
+            device [
+              PositionSensor {
+                name "Rob1Sensor"
+              }
+            ]
+            endPoint Solid {
+              translation 0 0.1999999999999999 0
+              rotation 0 0 -1 0
+              children [
+                Transform {
+                  translation 0 0.2 0
+                  children [
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        axis 0 0 -1
+                      }
+                      device [
+                        PositionSensor {
+                          name "Rob2Sensor"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation -1.3877787807814457e-17 0.2 0
+                        rotation 0 0 1 0
+                        children [
+                          DEF ROB_SHAPE_2 Shape {
+                            appearance PBRAppearance {
+                              emissiveColor 0.333333 1 0
+                            }
+                            geometry Box {
+                              size 0.05 0.4 0.05
+                            }
+                          }
+                        ]
+                        boundingObject USE ROB_SHAPE_2
+                        physics Physics {
+                        }
+                      }
+                    }
+                  ]
+                }
+                DEF ROB_SHAPE_1 Shape {
+                  appearance PBRAppearance {
+                    emissiveColor 1 0.333333 0
+                  }
+                  geometry Box {
+                    size 0.05 0.4 0.05
+                  }
+                }
+              ]
+              name "solid(1)"
+              boundingObject USE ROB_SHAPE_1
+              physics Physics {
+              }
+            }
+          }
+          DEF BASE_SHAPE Shape {
+            appearance PBRAppearance {
+              emissiveColor 0.333333 1 1
+            }
+            geometry Box {
+              size 0.25 0.05 0.15
+            }
+          }
+        ]
+        boundingObject USE BASE_SHAPE
+        physics Physics {
+        }
+      }
+    }
+  ]
+  controller "<extern>"
+}

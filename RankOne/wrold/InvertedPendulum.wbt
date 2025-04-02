@@ -1,0 +1,75 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  basicTimeStep 5
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation 0.9618644955506931 0.2728488962178461 0.019239855293467428 6.13682629123795
+  position 0.3218642090017071 0.6653255977638874 2.975489639115086
+}
+Floor {
+}
+TexturedBackgroundLight {
+}
+Robot {
+  translation 0 0.025 0
+  children [
+    DEF BaseMoveJoint SliderJoint {
+      jointParameters JointParameters {
+        axis 1 0 0
+      }
+      device [
+        PositionSensor {
+          name "BasePosSensor"
+        }
+        LinearMotor {
+          name "BasePosMotor"
+          maxForce 100
+        }
+      ]
+      endPoint DEF BASE Solid {
+        children [
+          DEF BASE_TO_ROD_1 HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 0 -1
+            }
+            device [
+              PositionSensor {
+                name "Rob1Sensor"
+              }
+            ]
+            endPoint Solid {
+              translation 0 0.2 0
+              rotation 0 0 -1 0
+              children [
+                DEF ROB_SHAPE_1 Shape {
+                  appearance PBRAppearance {
+                    emissiveColor 1 0.333333 0
+                  }
+                  geometry Box {
+                    size 0.05 0.4 0.05
+                  }
+                }
+              ]
+              boundingObject USE ROB_SHAPE_1
+              physics Physics {
+              }
+            }
+          }
+          DEF BASE_SHAPE Shape {
+            appearance PBRAppearance {
+              emissiveColor 0.333333 1 1
+            }
+            geometry Box {
+              size 0.25 0.05 0.15
+            }
+          }
+        ]
+        boundingObject USE BASE_SHAPE
+        physics Physics {
+        }
+      }
+    }
+  ]
+  controller "<extern>"
+}
